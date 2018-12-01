@@ -16,89 +16,65 @@
         <a class="navbar-brand" href="#">某某系统</a>
       </div>
       <ul class="nav navbar-nav">
-        <li><router-link to="/notice">最新通知</router-link></li>
-        <li><router-link to="/task">任务列表</router-link></li>
+        <li class="active"><a href="notice.html">最新通知</a></li>
+        <li><a href="mission.html">任务列表</a></li>
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="help.html">帮助说明</a></li>
       </ul>
     </nav>
-    <div>
-      <router-view></router-view>
-    </div>
-
-  </div>
-  <template id="notice">
     <form class="information container .clearfix">
-    <!-- <div class="info-left-nav pull-left">
-      <ul class="nav nav-pills">
-        <div class="title text-center">普通管理员</div>
-        <li class="block text-center"><a href="#">新任务</a></li>
-        <li class="block text-center"><a href="#">目前任务</a></li>
-        <li class="block text-center"><a href="#">已完成任务</a></li>
-      </ul>
-    </div> -->
-    <div class="info-message panel panel-default">
-      <div class="past-message">
-        <div class="panel-heading">
-          <label class="info-left"><h3>新通知</h3></label>
-          <label class="info-right pull-right"><h3>已阅</h3></label>
-        </div>
-        <div class="info-item panel-body">
-          <a href="#" data-toggle="modal" data-target="#messageModal">这是一条信息标题</a>
-          <span class="pull-right">
-            <!-- <input type="checkbox" class="checkbox" name="read" value="readed"> -->
-            <!-- <input id="getmiss" class="btn btn-warning" type="button" value="接收"> -->
-            <input id="getmiss" type="checkbox">
-          </span>
-          <div class="text-muted small">
-            发布时间：2018/11/16 &nbsp||&nbsp 截止日期：2018/11/18
+      <div class="info-message panel panel-default">
+        <div class="past-message">
+          <div class="panel-heading">
+            <label class="info-left"><h3>新通知</h3></label>
+            <label class="info-right pull-right"><h3>已阅</h3></label>
           </div>
-        </div>
-        <div class="info-item panel-body">
-          <a href="#" data-toggle="modal" data-target="#messageModal">这是一条信息标题</a>
-          <span class="pull-right">
-            <!-- <input type="checkbox" class="checkbox" name="read" value="readed"> -->
-            <!-- <input id="getmiss" class="btn btn-warning" type="button" value="接收"> -->
-            <input id="getmiss" type="checkbox">
-          </span>
-          <div class="text-muted small">
-            发布时间：2018/11/16 &nbsp||&nbsp 截止日期：2018/11/18
+          <div v-for="(todo,index) in noticeList" class="info-item panel-body">
+            <a href="#" data-toggle="modal" data-target="#messageModal">{{todo.title}}</a>
+            <span class="pull-right">
+              <input id="getmiss" type="checkbox">
+            </span>
+            <div class="text-muted small">
+              发布时间：2018/11/16 &nbsp||&nbsp 截止日期：{{todo.time}}
+            </div>
           </div>
-        </div>
-        <div class="page">
-          <ul class="pagination">
-            <li><a href="#" >上一页</a></li>
-            <li class="disabled"><a href="#">1/25</a></li>
-            <li><a href="#">下一页</a></li>
-          </ul>
+          <div class="page">
+            <ul class="pagination">
+              <li><a href="#" >上一页</a></li>
+              <li class="disabled"><a href="#">1/25</a></li>
+              <li><a href="#">下一页</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-  </form>
-  <div id="messageModal" class="modal fade" aria-hidden="true" data-backdrop="static" aria-labelledby="messageLabel">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
-          <h4 class="modal-title" id="messageLabel">nihaoa</h4>
-          <div class="text-muted small">发布时间：2018/11/16 &nbsp||&nbsp 截止日期：2018/11/18</div>
-        </div>
-        <div class="modal-body">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">修改</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        </div>
+    </form>
+    <div id="messageModal" class="modal fade" aria-hidden="true" data-backdrop="static" aria-labelledby="messageLabel">
+      <div class="modal-dialog">
+        <form v-for="todo in noticeList" class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+            <h4 class="modal-title" id="messageLabel">{{todo.title}}</h4>
+            <div class="text-muted small">发布时间：2018/11/16 &nbsp||&nbsp 截止日期：{{todo.time}}</div>
+          </div>
+          <div class="modal-body">
+            正文：{{todo.content}}
+            <textarea v-model="current.content" name="name" rows="3" cols="75"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button @click="set_current(todo)" type="button" class="btn btn-primary" disabled=disabled>修改</button>
+            <button @click="merge" type="button" class="btn btn-primary" disabled=disabled>确定修改</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  </template>
-
-
   <script src="lib/vue.js" charset="utf-8"></script>
   <script src="lib/vue-router.js" charset="utf-8"></script>
   <script src="lib/jquery.js" charset="utf-8"></script>
   <script src="lib/bootstrap.js" charset="utf-8"></script>
+  <script src="js/localStorage.js" charset="utf-8"></script>
   <script src="js/notice.js" charset="utf-8"></script>
 </body>
 </html>
