@@ -30,10 +30,12 @@
             <label class="info-left"><h3>新通知</h3></label>
             <label class="info-right pull-right"><h3>已阅</h3></label>
           </div>
-          <div v-for="(todo,index) in noticeList" class="info-item panel-body">
-            <a href="#" data-toggle="modal" data-target="#messageModal">{{todo.title}}</a>
+          <div v-for="(todo,index) in noticeList"  class="info-item panel-body">
+              <a href="#" data-toggle="modal" data-target="#messageModal" :key="todo.id" @click="toggle_detail(todo.id)" >{{todo.title}}</a>
             <span class="pull-right">
-              <input id="getmiss" type="checkbox">
+              <!-- <input id="getmiss" type="checkbox"> -->
+              <!-- <button @click="toggle_detail(todo.id)" type="button" name="button">详情{{todo.id}}</button> -->
+              <!-- <div v-if="todo.show_detail">详情：{{todo.content}}</div> -->
             </span>
             <div class="text-muted small">
               发布时间：2018/11/16 &nbsp||&nbsp 截止日期：{{todo.time}}
@@ -49,22 +51,22 @@
         </div>
       </div>
     </form>
-    <div id="messageModal" class="modal fade" aria-hidden="true" data-backdrop="static" aria-labelledby="messageLabel">
+    <div v-for="todo in noticeList" v-if="todo.show_detail" id="messageModal" class="modal fade" aria-hidden="true" data-backdrop="static" aria-labelledby="messageLabel">
       <div class="modal-dialog">
-        <form v-for="todo in noticeList" class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+        <form class="modal-content">
+          <div  class="modal-header">
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button> -->
             <h4 class="modal-title" id="messageLabel">{{todo.title}}</h4>
-            <div class="text-muted small">发布时间：2018/11/16 &nbsp||&nbsp 截止日期：{{todo.time}}</div>
+            <div class="text-muted small">发布时间：2018/11/16 &nbsp||&nbsp 截止日期：2020</div>
           </div>
           <div class="modal-body">
-            正文：{{todo.content}}
-            <textarea v-model="current.content" name="name" rows="3" cols="75"></textarea>
+            {{todo.content}}
+
           </div>
           <div class="modal-footer">
             <button @click="set_current(todo)" type="button" class="btn btn-primary" disabled=disabled>修改</button>
             <button @click="merge" type="button" class="btn btn-primary" disabled=disabled>确定修改</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button @click="reset_detail(todo.id)" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
           </div>
         </form>
       </div>

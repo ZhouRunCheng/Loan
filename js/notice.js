@@ -45,15 +45,27 @@
         this.current = copy(todo);
       },
       find_index:function(id){
-        return this.noticeList.findIndex(function(item){
-          return item.id = id;
-        })
-      },
+			return this.noticeList.findIndex(function(item){
+				return item.id == id;
+			})
+		},
       next_id:function(){
         return this.noticeList.length + 1;
       },
+      toggle_detail:function(id){
+        var index = this.find_index(id);
+        // console.log(this.noticeList[index]);
+        // this.noticeList[index].show_detail = true;
+        Vue.set(this.noticeList[index],'show_detail',true);
+      },
+      reset_detail:function(id){
+        var index = this.find_index(id);
+        console.log(id);
+        // this.noticeList[index].show_detail = true;
+        Vue.set(this.noticeList[index],'show_detail',false);
+      },
     },
-    watch:{		//监控list数组，若发生变化，则自动储存数组。
+    watch:{		//监控noticeList数组，若发生变化，则自动储存数组。
 		noticeList:{
 			deep:true,
 			handler:function(n,o){
