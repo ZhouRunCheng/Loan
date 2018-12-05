@@ -5,17 +5,22 @@
     return Object.assign({},obj);
   }
 
+
   new Vue({
     el:'#noticeTask',
     data:{
       noticeList:[],
+      setnotice:[],
       current:{},
+      pnow:null,
+      ptime:null,
+      ptitle:null,
+      pcontent:null,
     },
 
     mounted:function(){
       var me = this;
       this.noticeList = ms.get('noticeList') || this.noticeList;
-      console.log(this.noticeList[1]);
       // alert("标题："+this.noticeList[1].title)
     },
 
@@ -32,7 +37,13 @@
           todo.id = this.next_id();
           this.noticeList.push(todo);
         }
-        this.reset()
+        this.push_time();
+        this.reset();
+      },
+      push_time:function(){
+        var now = new Date();
+        this.noticeList.now = now;
+        console.log(this.noticeList.now);
       },
       reset:function(){
         return this.current = {};
@@ -54,15 +65,11 @@
       },
       toggle_detail:function(id){
         var index = this.find_index(id);
-        // console.log(this.noticeList[index]);
-        // this.noticeList[index].show_detail = true;
-        Vue.set(this.noticeList[index],'show_detail',true);
-      },
-      reset_detail:function(id){
-        var index = this.find_index(id);
-        console.log(id);
-        // this.noticeList[index].show_detail = true;
-        Vue.set(this.noticeList[index],'show_detail',false);
+        console.log(this.noticeList[index].now);
+        this.pnow = this.noticeList[index].now;
+        this.ptime = this.noticeList[index].time;
+        this.ptitle = this.noticeList[index].title;
+        this.pcontent = this.noticeList[index].content;
       },
     },
     watch:{		//监控noticeList数组，若发生变化，则自动储存数组。

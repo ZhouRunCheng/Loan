@@ -28,45 +28,42 @@
         <div class="past-message">
           <div class="panel-heading">
             <label class="info-left"><h3>新通知</h3></label>
-            <label class="info-right pull-right"><h3>已阅</h3></label>
+            <label class="info-right pull-right"><h3>详情</h3></label>
           </div>
           <div v-for="(todo,index) in noticeList"  class="info-item panel-body">
-              <a href="#" data-toggle="modal" data-target="#messageModal" :key="todo.id" @click="toggle_detail(todo.id)" >{{todo.title}}</a>
+              <a href="#" data-toggle="modal" data-target="#messageModal1" @click="toggle_detail(todo.id)" >{{todo.title}}</a>
             <span class="pull-right">
               <!-- <input id="getmiss" type="checkbox"> -->
-              <!-- <button @click="toggle_detail(todo.id)" type="button" name="button">详情{{todo.id}}</button> -->
-              <!-- <div v-if="todo.show_detail">详情：{{todo.content}}</div> -->
             </span>
             <div class="text-muted small">
               发布时间：2018/11/16 &nbsp||&nbsp 截止日期：{{todo.time}}
             </div>
           </div>
-          <div class="page">
+          <!-- <div class="page">
             <ul class="pagination">
               <li><a href="#" >上一页</a></li>
               <li class="disabled"><a href="#">1/25</a></li>
               <li><a href="#">下一页</a></li>
             </ul>
-          </div>
+          </div> -->
         </div>
       </div>
     </form>
-    <div v-for="todo in noticeList" v-if="todo.show_detail" id="messageModal" class="modal fade" aria-hidden="true" data-backdrop="static" aria-labelledby="messageLabel">
+    <div id="messageModal1" class="modal fade" aria-hidden="true" data-backdrop="static" aria-labelledby="messageLabel1">
       <div class="modal-dialog">
         <form class="modal-content">
           <div  class="modal-header">
             <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button> -->
-            <h4 class="modal-title" id="messageLabel">{{todo.title}}</h4>
-            <div class="text-muted small">发布时间：2018/11/16 &nbsp||&nbsp 截止日期：2020</div>
+            <h4 class="modal-title" id="messageLabel1">{{ptitle}}</h4>
+            <div class="text-muted small">发布时间：{{pnow}} &nbsp||&nbsp 截止日期：{{ptime}}</div>
           </div>
           <div class="modal-body">
-            {{todo.content}}
-
+            {{pcontent}}
           </div>
           <div class="modal-footer">
             <button @click="set_current(todo)" type="button" class="btn btn-primary" disabled=disabled>修改</button>
             <button @click="merge" type="button" class="btn btn-primary" disabled=disabled>确定修改</button>
-            <button @click="reset_detail(todo.id)" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
           </div>
         </form>
       </div>
